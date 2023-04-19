@@ -1,21 +1,22 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace maison
 {
-    internal class Piece
+    public class Piece
     {
         public Point[] Points { get; private set; }
         public Canvas Canvas { get; private set; }
+        public bool IsSquareDrawn { get; private set; }
 
         public Piece(Canvas canvas)
         {
             Points = new Point[4];
             InitializePoints();
             Canvas = canvas;
+            IsSquareDrawn = false;
         }
 
         public void InitializePoints()
@@ -34,6 +35,7 @@ namespace maison
                 Points[0].X = x;
                 Points[0].Y = y;
                 creerRond(Points[0].X, Points[0].Y);
+                IsSquareDrawn = true;
             }
             else // Si ce n'est pas la première fois
             {
@@ -51,8 +53,10 @@ namespace maison
                 Canvas.Children.Add(creerLine(Points[2], Points[0]));
 
                 InitializePoints();
+                IsSquareDrawn = false;
             }
         }
+
         private Line creerLine(Point point1, Point point2)
         {
             Line line = new Line

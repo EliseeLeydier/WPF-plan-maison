@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:maison"
         mc:Ignorable="d"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        MouseLeftButtonDown="Canvas_MouseLeftButtonDown"
         Title="MainWindow" Height="450" Width="600">
     <Window.Resources>
         <Style x:Key="TitreBarreOutil" TargetType="TextBlock">
@@ -114,8 +114,32 @@
                 <MenuItem Header="_Démmerde toi" />
             </MenuItem>
         </Menu>
-        <Canvas Grid.Row="1" Grid.Column="2" x:Name="canvas">
-            <!-- le contenu de la fenêtre -->
+        <Canvas x:Name="myCanvas" Background="White" Width="Auto" Height="Auto"
+                Grid.Row="1" Grid.Column="2">
+            <ItemsControl ItemsSource="{Binding Points}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Ellipse Width="10" Height="10" Fill="LightBlue" Stroke="Black">
+                            <Ellipse.RenderTransform>
+                                <TranslateTransform X="{Binding X}" Y="{Binding Y}"/>
+                            </Ellipse.RenderTransform>
+                        </Ellipse>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <ItemsControl ItemsSource="{Binding Lines}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Line X1="{Binding Point1.X}" Y1="{Binding Point1.Y}"
+                              X2="{Binding Point2.X}" Y2="{Binding Point2.Y}"
+                              Stroke="Black" StrokeThickness="1"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+
+            
         </Canvas>
-    </Grid>
+    </Grid> 
 </Window>
